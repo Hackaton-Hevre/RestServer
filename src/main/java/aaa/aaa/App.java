@@ -10,7 +10,7 @@ import static aaa.aaa.JsonUtil.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class App {
-
+    // members
     private static final String template = "Hello, %s!";
     private final static AtomicLong counter = new AtomicLong();
     private static GreetingService greetingService = new GreetingService();
