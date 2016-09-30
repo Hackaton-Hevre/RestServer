@@ -16,23 +16,29 @@ public class App {
     private static GreetingService greetingService = new GreetingService();
     
     public static void main(String[] args) {
-    	port(7000);
-    	
-    	get("/users/:username", (req, res) -> req.params(":username"), json());
-    	
-    	get("/greetings", (req, res) -> greetingService.getAllUsers(), json());
-        
-        get("/string", (req, res) -> {
-        	String string = "String!";
-        	return string;
-        });
-        
-        get("/greeting/:name", (req, res) -> {
-        	String name = req.params(":name");
-        	Greeting greeting = new Greeting(counter.incrementAndGet(),
-                    String.format(template, name));
-        	return greeting;
-        }, json());
+    	try{
+        	port(7800);
+        	
+        	get("/users/:username", (req, res) -> req.params(":username"), json());
+        	
+        	get("/greetings", (req, res) -> greetingService.getAllUsers(), json());
+            
+            get("/string", (req, res) -> {
+            	String string = "String!";
+            	return string;
+            });
+            
+            get("/greeting/:name", (req, res) -> {
+            	String name = req.params(":name");
+            	Greeting greeting = new Greeting(counter.incrementAndGet(),
+                        String.format(template, name));
+            	return greeting;
+            }, json());
+    	}
+    	catch (Exception e)
+    	{
+    		stop();
+    	}
         // comment for push avichay local
     }
     //comment
