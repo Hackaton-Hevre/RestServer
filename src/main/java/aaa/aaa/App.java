@@ -16,7 +16,9 @@ public class App {
     private static GreetingService greetingService = new GreetingService();
     
     public static void main(String[] args) {
-    	port(5000);
+    	port(7000);
+    	
+    	get("/users/:username", (req, res) -> req.params(":username"), json());
     	
     	get("/greetings", (req, res) -> greetingService.getAllUsers(), json());
         
