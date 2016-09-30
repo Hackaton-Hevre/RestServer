@@ -1,4 +1,4 @@
-package aaa.aaa;
+package aaa.comunication;
 
 import com.google.gson.Gson;
 
