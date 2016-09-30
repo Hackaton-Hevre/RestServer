@@ -31,9 +31,5 @@ public class App {
                     String.format(template, name));
         	return greeting;
         }, json());
-        
-        get("/hello/:name", (request, response) -> {
-            return "Hello: " + request.params(":name");
-        });
     }
 }
