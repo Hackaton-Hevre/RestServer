@@ -22,7 +22,8 @@ public class App {
     
     public static void main(String[] args) {
     	try{
-    		startServer(7300);    		
+    		startServer(7300);  
+    		runDemoStuff();
     		runUserApi();
         	
     	}
@@ -32,7 +33,12 @@ public class App {
     	}
     }
     
-    public static void startServer(int nPort)
+    private static void runDemoStuff() {
+		dataService.createDemoProduct("banana");
+		dataService.createDemoProduct("milk");
+	}
+
+	public static void startServer(int nPort)
     {
     	port(nPort);
     	userService = UserService.getInstance();
@@ -58,6 +64,20 @@ public class App {
 			LoginStatus status = userService.register(name, pass, mail);
 			return status.getValue();
 		});
+		
+		post("/users/addProduct/:userName/:productName", (req,res)->
+		{
+			String userName = req.params(":userName");
+			String productName = req.params(":productName"); 
+			dataService.addProductToUser(productName, userName);
+			return 1;
+		});
+		
+		get("/users/getProduct/:userName", (req,res)->
+		{
+			String uName = req.params(":userName");
+			return userService.getUserProductsList(uName);
+					});
     }
     
 }

@@ -1,15 +1,16 @@
 package domain;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class ProductController implements IProductController{
 	
-	private List<Product> productData;
+	private HashMap<String,Product> productData;
 	private static ProductController instance;
 	
 	private ProductController()
 	{
-		createData();
+		productData = new HashMap<String, Product>();
 	}
 	
 
@@ -22,9 +23,15 @@ public class ProductController implements IProductController{
 		return instance;
 	}
 	
-	private void createData() {
-		// TODO Auto-generated method stub
-		
+	public Product getProductByName(String name)
+	{
+		return productData.get(name);
+	}
+	
+	public void addProduct(String name)
+	{
+		Product p = new Product(name);
+		productData.put(name, p);
 	}
 	
 }

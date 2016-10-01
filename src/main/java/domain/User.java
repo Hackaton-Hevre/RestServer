@@ -1,10 +1,13 @@
 package domain;
 
+import java.util.LinkedList;
+
 public class User {
 	
 	private String UserName;
 	private String Password;
 	private String Email;
+	private LinkedList<ActualProduct> products;
 	
 	
 	public User (String UserName, String Password, String Email){
@@ -12,6 +15,7 @@ public class User {
 		this.setUserName(UserName);
 		this.setPassword(Password);
 		this.setEmail(Email);
+		products = new LinkedList<ActualProduct>();
 	}
 
 	public String getUserName() {
@@ -36,6 +40,15 @@ public class User {
 
 	public void setEmail(String email) {
 		Email = email;
+	}
+	
+	public void AddActProdToList(ActualProduct p)
+	{
+		this.products.add(p);
+	}
+	
+	public LinkedList<ActualProduct> getProductList(){
+		return products;
 	}
 
 }

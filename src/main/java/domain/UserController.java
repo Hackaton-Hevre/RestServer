@@ -51,5 +51,41 @@ public class UserController {
 		}
 		return LoginStatus.SUCCESS;
 	}
+	
+	
+	public User GetUserByName(String UserName)
+	{
+		User currUser = Users.get(UserName);
+		return currUser;
+		
+	}
+	
+	public void addProductToUser(User user, ActualProduct prod)
+	{
+		user.AddActProdToList(prod);
+	}
+	
+	public LinkedList<String> getProductListByUserName(String uName)
+	{
+		User user = Users.get(uName);
+		return productsToString(user.getProductList());
+	}
+	
+	private LinkedList<String> productsToString(LinkedList<ActualProduct> list)
+	{
+		LinkedList<String> res = new LinkedList<String>();
+		for(int i = 0; i< list.size(); i++)
+		{
+			ActualProduct p = list.get(i);
+			if(p.isActive())
+			{
+				String str = p.getGenericProduct().getName();	
+				res.add(str);
+			}
+			
+		}
+		
+		return res;
+	}
 
 }

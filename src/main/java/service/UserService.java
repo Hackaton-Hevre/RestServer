@@ -1,5 +1,8 @@
 package service;
 
+import java.util.LinkedList;
+
+import aaa.comunication.JsonUtil;
 import domain.BusinessController;
 import domain.LoginStatus;
 import domain.ProductController;
@@ -35,6 +38,14 @@ public class UserService implements IService {
 	public LoginStatus register(String UserName, String Password, String Email){
 		
 		return UserCont.register(UserName, Password, Email);
+	}
+	
+	public String getUserProductsList(String uName)
+	{
+		LinkedList<String> list = UserCont.getProductListByUserName(uName);
+		JsonProducs jsonParam= new JsonProducs(list);
+		String json = JsonUtil.toJson(jsonParam);
+		return json;
 	}
 
 }
