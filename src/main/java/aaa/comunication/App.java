@@ -22,7 +22,7 @@ public class App {
     public static void main(String[] args) {
     	try{
     		startServer(7300);  
-    		runDemoStuff();
+//    		runDemoStuff();
     		runUserApi();
         	
     	}
@@ -76,6 +76,12 @@ public class App {
 			String uName = req.params(":userName");
 			return dataService.getUserProductsList(uName);
 					});
+
+		get("/products/getall", (req, res) -> {
+			return dataService.getAllProducts();
+		});
     }
+
+
     
 }

@@ -4,13 +4,11 @@ public class Product {
 
 	private Tag tag;
 	private String name;
-	private boolean active;
 	
 	public Product( String inName )
 	{
 		//tag = inTag;
 		name = inName;
-		setActive(true);
 	}
 	
 	public Tag getTag() {
@@ -27,13 +25,5 @@ public class Product {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public boolean isActive() {
-		return active;
-	}
-
-	public void setActive(boolean active) {
-		this.active = active;
 	}
 }

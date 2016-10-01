@@ -58,13 +58,23 @@ public class Service implements IService {
 		
 		return UserCont.register(UserName, Password, Email);
 	}
-	
-	public String getUserProductsList(String uName)
-	{
-		LinkedList<String> list = UserCont.getProductListByUserName(uName);
+
+	public String ll2Json(LinkedList list) {
 		JsonProducs jsonParam= new JsonProducs(list);
 		String json = JsonUtil.toJson(jsonParam);
 		return json;
+	}
+
+	public String getUserProductsList(String uName)
+	{
+		LinkedList<String> list = UserCont.getProductListByUserName(uName);
+		return ll2Json(list);
+	}
+
+	public String getAllProducts() {
+		LinkedList<String> allProducts = ProductCont.getAllProducts();
+		return ll2Json(allProducts);
+
 	}
 	
 }

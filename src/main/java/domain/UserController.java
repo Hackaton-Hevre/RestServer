@@ -57,7 +57,6 @@ public class UserController {
 	{
 		User currUser = Users.get(UserName);
 		return currUser;
-		
 	}
 	
 	public void addProductToUser(User user, ActualProduct prod)
@@ -82,10 +81,10 @@ public class UserController {
 				String str = p.getGenericProduct().getName();	
 				res.add(str);
 			}
-			
 		}
-		
 		return res;
 	}
+
+
 
 }
