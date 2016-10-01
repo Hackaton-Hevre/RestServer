@@ -22,7 +22,7 @@ public class App {
     
     public static void main(String[] args) {
     	try{
-    		startServer(7900);
+    		startServer(7300);
     		
     		get("/health-check",(req,res)->{return "all is ok";});
     		
@@ -31,16 +31,16 @@ public class App {
     			String name = req.params(":name");
     			String pass = req.params(":pass");
     			LoginStatus status = userService.login(name, pass);
-    			return "the status is: " + status.getValue();
+    			return status.getValue();
     		});
     		
-    		post("/users/register/:name/:pass/:mail", (req,res)->
+    		post("/users/register/:name/:pass/:mail/:restMail", (req,res)->
     		{
     			String name = req.params(":name");
     			String pass = req.params(":pass");
-    			String mail = req.params(":mail"); 
+    			String mail = req.params(":mail") +"@" +req.params(":restMail"); 
     			LoginStatus status = userService.register(name, pass, mail);
-    			return "the status is: " + status.getValue();
+    			return status.getValue();
     		});
         	
 
