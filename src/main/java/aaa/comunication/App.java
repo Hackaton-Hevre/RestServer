@@ -22,36 +22,9 @@ public class App {
     
     public static void main(String[] args) {
     	try{
-    		startServer(7300);
-    		
-    		get("/health-check",(req,res)->{return "all is ok";});
-    		
-    		post("/users/login/:name/:pass", (req,res)->
-    		{
-    			String name = req.params(":name");
-    			String pass = req.params(":pass");
-    			LoginStatus status = userService.login(name, pass);
-    			return status.getValue();
-    		});
-    		
-    		post("/users/register/:name/:pass/:mail/:restMail", (req,res)->
-    		{
-    			String name = req.params(":name");
-    			String pass = req.params(":pass");
-    			String mail = req.params(":mail") +"@" +req.params(":restMail"); 
-    			LoginStatus status = userService.register(name, pass, mail);
-    			return status.getValue();
-    		});
+    		startServer(7300);    		
+    		runUserApi();
         	
-
-        
-//            
-//            get("/greeting/:name", (req, res) -> {
-//            	String name = req.params(":name");
-//            	Greeting greeting = new Greeting(counter.incrementAndGet(),
-//                        String.format(template, name));
-//            	return greeting;
-//            }, json());
     	}
     	catch (Exception e)
     	{
@@ -64,6 +37,27 @@ public class App {
     	port(nPort);
     	userService = UserService.getInstance();
     	dataService = DataService.getInstance();
+    	get("/health-check",(req,res)->{return "all is ok";});
+    }
+    
+    public static void runUserApi()
+    {
+		post("/users/login/:name/:pass", (req,res)->
+		{
+			String name = req.params(":name");
+			String pass = req.params(":pass");
+			LoginStatus status = userService.login(name, pass);
+			return status.getValue();
+		});
+		
+		post("/users/register/:name/:pass/:mail/:restMail", (req,res)->
+		{
+			String name = req.params(":name");
+			String pass = req.params(":pass");
+			String mail = req.params(":mail") +"@" +req.params(":restMail"); 
+			LoginStatus status = userService.register(name, pass, mail);
+			return status.getValue();
+		});
     }
     
 }
