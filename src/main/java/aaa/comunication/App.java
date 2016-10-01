@@ -10,14 +10,13 @@ import static spark.Spark.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 import domain.LoginStatus;
-import service.DataService;
-import service.UserService;
+import service.Service;
 
 public class App {
     // members
 
-	private static DataService dataService;
-	private static UserService userService;
+	private static Service dataService;
+
     
     
     public static void main(String[] args) {
@@ -41,8 +40,7 @@ public class App {
 	public static void startServer(int nPort)
     {
     	port(nPort);
-    	userService = UserService.getInstance();
-    	dataService = DataService.getInstance();
+    	dataService = Service.getInstance();
     	get("/health-check",(req,res)->{return "all is ok";});
     }
     
@@ -52,7 +50,7 @@ public class App {
 		{
 			String name = req.params(":name");
 			String pass = req.params(":pass");
-			LoginStatus status = userService.login(name, pass);
+			LoginStatus status = dataService.login(name, pass);
 			return status.getValue();
 		});
 		
@@ -61,7 +59,7 @@ public class App {
 			String name = req.params(":name");
 			String pass = req.params(":pass");
 			String mail = req.params(":mail") +"@" +req.params(":restMail"); 
-			LoginStatus status = userService.register(name, pass, mail);
+			LoginStatus status = dataService.register(name, pass, mail);
 			return status.getValue();
 		});
 		
@@ -76,7 +74,7 @@ public class App {
 		get("/users/getProduct/:userName", (req,res)->
 		{
 			String uName = req.params(":userName");
-			return userService.getUserProductsList(uName);
+			return dataService.getUserProductsList(uName);
 					});
     }
     

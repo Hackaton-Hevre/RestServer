@@ -1,26 +1,29 @@
 package service;
 
+import java.util.LinkedList;
+
+import aaa.comunication.JsonUtil;
 import domain.*;
 
-public class DataService implements IService {
+public class Service implements IService {
 
 	private BusinessController BusinessCont;
 	private ProductController ProductCont;
 	private UserController UserCont;
-	private static DataService Instance;
+	private static Service Instance;
 	
-	private DataService()
+	private Service()
 	{
 		BusinessCont = BusinessController.getInstance();
 		ProductCont = ProductController.getInstance();
 		UserCont = UserController.getInstance();
 	}
 	
-	public static DataService getInstance()
+	public static Service getInstance()
 	{
 		if(Instance == null)
 		{
-			Instance = new DataService();
+			Instance = new Service();
 		}
 		return Instance;
 	}
@@ -43,6 +46,25 @@ public class DataService implements IService {
 	public void createDemoProduct(String name)
 	{
 		ProductCont.addProduct(name);
+	}
+	
+	
+	public LoginStatus login(String UserName, String Password){
+			
+		return UserCont.login(UserName, Password);
+	}
+	
+	public LoginStatus register(String UserName, String Password, String Email){
+		
+		return UserCont.register(UserName, Password, Email);
+	}
+	
+	public String getUserProductsList(String uName)
+	{
+		LinkedList<String> list = UserCont.getProductListByUserName(uName);
+		JsonProducs jsonParam= new JsonProducs(list);
+		String json = JsonUtil.toJson(jsonParam);
+		return json;
 	}
 	
 }
