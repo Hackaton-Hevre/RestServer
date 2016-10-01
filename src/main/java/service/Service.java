@@ -4,23 +4,35 @@ import domain.*;
 
 public class Service implements IService {
 
-	private BusinessController businessCont;
-	private ProductController productCont;
-	private static Service instance;
+	private BusinessController BusinessCont;
+	private ProductController ProductCont;
+	private UserController UserCont;
+	private static Service Instance;
 	
 	private Service()
 	{
-		businessCont = BusinessController.getInstance();
-		productCont = ProductController.getInstance();
+		BusinessCont = BusinessController.getInstance();
+		ProductCont = ProductController.getInstance();
+		UserCont = UserController.getInstance();
 	}
 	
 	public static Service getInstance()
 	{
-		if(instance == null)
+		if(Instance == null)
 		{
-			instance = new Service();
+			Instance = new Service();
 		}
-		return instance;
+		return Instance;
+	}
+	
+	public LoginStatus login(String UserName, String Password){
+			
+		return UserCont.login(UserName, Password);
+	}
+	
+	public LoginStatus register(String UserName, String Password, String Email){
+		
+		return UserCont.register(UserName, Password, Email);
 	}
 	
 }

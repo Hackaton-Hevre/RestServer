@@ -9,27 +9,44 @@ import static spark.Spark.*;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+import domain.LoginStatus;
 import service.Service;
 
 public class App {
     // members
 
-	private Service service;
+	private static Service service;
     
     
     public static void main(String[] args) {
     	try{
-    		startServer(7800);
-        	
-        	get("/lala", (req, res) -> {return "moshe";}, json());
+    		startServer(7900);
+    		
+    		get("/login/:name/:pass", (req,res)->
+    		{
+    			String name = req.params(":name");
+    			String pass = req.params(":pass");
+    			LoginStatus status = service.login(name, pass);
+    			return "the status is: " + status;
+    		});
+    		
+    		get("/register/:name/:pass/:mail", (req,res)->
+    		{
+    			String name = req.params(":name");
+    			String pass = req.params(":pass");
+    			String mail = req.params(":mail"); 
+    			LoginStatus status = service.register(name, pass, mail);
+    			return "the status is: " + status;
+    		});
         	
 
-            
-            get("/string", (req, res) -> {
-            	String string = "String!";
-            	return string;
-            });
-            
+        
+//            
+//            get("/string", (req, res) -> {
+//            	String string = "String!";
+//            	return string;
+//            });
+//            
 //            get("/greeting/:name", (req, res) -> {
 //            	String name = req.params(":name");
 //            	Greeting greeting = new Greeting(counter.incrementAndGet(),
@@ -47,6 +64,7 @@ public class App {
     public static void startServer(int nPort)
     {
     	port(nPort);
+    	service = Service.getInstance();
     }
     
     //comment
