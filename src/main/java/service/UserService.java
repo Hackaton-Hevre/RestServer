@@ -5,7 +5,12 @@ import domain.LoginStatus;
 import domain.ProductController;
 import domain.UserController;
 
-public class UserService {
+
+
+
+public class UserService implements IService {
+
+
 
 	private UserController UserCont;
 	private static UserService Instance;
