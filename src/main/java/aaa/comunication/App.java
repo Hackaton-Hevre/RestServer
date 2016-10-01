@@ -10,42 +10,41 @@ import static spark.Spark.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 import domain.LoginStatus;
-import service.Service;
+import service.DataService;
+import service.UserService;
 
 public class App {
     // members
 
-	private static Service service;
+	private static DataService dataService;
+	private static UserService userService;
     
     
     public static void main(String[] args) {
     	try{
     		startServer(7900);
     		
-    		get("/login/:name/:pass", (req,res)->
+    		get("/health-check",(req,res)->{return "all is ok";});
+    		
+    		post("/users/login/:name/:pass", (req,res)->
     		{
     			String name = req.params(":name");
     			String pass = req.params(":pass");
-    			LoginStatus status = service.login(name, pass);
-    			return "the status is: " + status;
+    			LoginStatus status = userService.login(name, pass);
+    			return "the status is: " + status.getValue();
     		});
     		
-    		get("/register/:name/:pass/:mail", (req,res)->
+    		post("/users/register/:name/:pass/:mail", (req,res)->
     		{
     			String name = req.params(":name");
     			String pass = req.params(":pass");
     			String mail = req.params(":mail"); 
-    			LoginStatus status = service.register(name, pass, mail);
-    			return "the status is: " + status;
+    			LoginStatus status = userService.register(name, pass, mail);
+    			return "the status is: " + status.getValue();
     		});
         	
 
         
-//            
-//            get("/string", (req, res) -> {
-//            	String string = "String!";
-//            	return string;
-//            });
 //            
 //            get("/greeting/:name", (req, res) -> {
 //            	String name = req.params(":name");
@@ -58,15 +57,13 @@ public class App {
     	{
     		stop();
     	}
-        // comment for push avichay local
     }
     
     public static void startServer(int nPort)
     {
     	port(nPort);
-    	service = Service.getInstance();
+    	userService = UserService.getInstance();
+    	dataService = DataService.getInstance();
     }
     
-    //comment
-    // other comment
 }

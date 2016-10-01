@@ -1,26 +1,25 @@
 package service;
 
-import domain.*;
+import domain.BusinessController;
+import domain.LoginStatus;
+import domain.ProductController;
+import domain.UserController;
 
-public class Service implements IService {
+public class UserService {
 
-	private BusinessController BusinessCont;
-	private ProductController ProductCont;
 	private UserController UserCont;
-	private static Service Instance;
+	private static UserService Instance;
 	
-	private Service()
+	private UserService()
 	{
-		BusinessCont = BusinessController.getInstance();
-		ProductCont = ProductController.getInstance();
 		UserCont = UserController.getInstance();
 	}
 	
-	public static Service getInstance()
+	public static UserService getInstance()
 	{
 		if(Instance == null)
 		{
-			Instance = new Service();
+			Instance = new UserService();
 		}
 		return Instance;
 	}
@@ -34,5 +33,5 @@ public class Service implements IService {
 		
 		return UserCont.register(UserName, Password, Email);
 	}
-	
+
 }
