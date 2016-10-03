@@ -59,9 +59,9 @@ public class UserController {
 		return currUser;
 	}
 	
-	public void addProductToUser(User user, ActualProduct prod)
+	public int addProductToUser(User user, Product prod)
 	{
-		user.AddActProdToList(prod);
+		return user.AddActProdToList(prod);
 	}
 	
 	public LinkedList<String> getProductListByUserName(String uName)

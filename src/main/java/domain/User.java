@@ -42,9 +42,22 @@ public class User {
 		Email = email;
 	}
 	
-	public void AddActProdToList(ActualProduct p)
+	public int AddActProdToList(Product p)
 	{
-		this.products.add(p);
+		ActualProduct act = new ActualProduct(p, true);
+		try
+		{
+			if (products.contains(new ActualProduct(p, true)))
+			{
+				return 0;
+			}
+			this.products.add(act);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return 0;
+		}
 	}
 	
 	public LinkedList<ActualProduct> getProductList(){

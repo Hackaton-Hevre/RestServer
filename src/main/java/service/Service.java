@@ -28,18 +28,18 @@ public class Service implements IService {
 		return Instance;
 	}
 	
-	public void addProductToUser(String pName, String uName)
+	public int addProductToUser(String pName, String uName)
 	{
 		User user = UserCont.GetUserByName(uName);
 		Product product  = ProductCont.getProductByName(pName);
 		if (product == null)
 		{
 			System.out.println("product doesnt exist");
+			return 0;
 		}
 		else{
 			System.out.println("adding product " + product.getName() + " to user " + user.getUserName());
-			ActualProduct act = new ActualProduct(product, true);
-			UserCont.addProductToUser(user, act);
+			return UserCont.addProductToUser(user, product);
 		}
 	}
 	
@@ -75,6 +75,19 @@ public class Service implements IService {
 		LinkedList<String> allProducts = ProductCont.getAllProducts();
 		return ll2Json(allProducts);
 
+	}
+
+	public int findProduct(String pName) {
+		int exists = 0;
+		try
+		{
+			exists = ProductCont.findProduct(pName);
+		}
+		catch (Exception e)
+		{
+			
+		}
+		return exists;
 	}
 	
 }

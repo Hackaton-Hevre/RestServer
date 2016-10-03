@@ -65,4 +65,9 @@ public class ProductController implements IProductController{
         result.addAll(productData.keySet());
 		return result;
 	}
+
+	public int findProduct(String pName) {
+		int result = (productData.containsKey(pName)) ? 1 : 0;
+		return result;
+	}
 }

@@ -21,7 +21,7 @@ public class App {
     
     public static void main(String[] args) {
     	try{
-    		startServer(7300);  
+    		startServer(7700);  
 //    		runDemoStuff();
     		runUserApi();
         	
@@ -63,12 +63,11 @@ public class App {
 			return status.getValue();
 		});
 		
-		post("/users/addProduct/:userName/:productName", (req,res)->
+		post("/users/addReminder/:userName/:productName", (req,res)->
 		{
 			String userName = req.params(":userName");
 			String productName = req.params(":productName"); 
-			dataService.addProductToUser(productName, userName);
-			return 1;
+			return dataService.addProductToUser(productName, userName);
 		});
 		
 		get("/users/getProduct/:userName", (req,res)->
@@ -79,6 +78,11 @@ public class App {
 
 		get("/products/getall", (req, res) -> {
 			return dataService.getAllProducts();
+		});
+		
+		get("/products/find/:name", (req, res) -> {
+			String pName = req.params(":name");
+			return dataService.findProduct(pName);
 		});
     }
 
